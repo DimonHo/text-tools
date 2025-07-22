@@ -181,7 +181,7 @@ function validateJson() {
 }
 
 // 多行文本处理功能
-function toQuotedList() {
+function toQuotedList(quoteType = 'single') {
     const input = document.getElementById('multiline-input').value;
     const output = document.getElementById('multiline-output');
     
@@ -193,11 +193,20 @@ function toQuotedList() {
     try {
         const lines = input.split('\n')
             .map(line => line.trim())
-            .filter(line => line.length > 0)
-            .map(line => `'${line}'`);
+            .filter(line => line.length > 0);
         
-        output.value = lines.join(',\n');
-        showStatus(`已转换 ${lines.length} 行文本！`, 'success');
+        let quotedLines;
+        if (quoteType === 'double') {
+            // 对于双引号，需要转义内部的双引号
+            quotedLines = lines.map(line => `"${line.replace(/"/g, '\\"')}"`);
+        } else {
+            // 对于单引号，需要转义内部的单引号
+            quotedLines = lines.map(line => `'${line.replace(/'/g, "\\'")}'`);
+        }
+        
+        output.value = quotedLines.join(',\n');
+        const quoteTypeName = quoteType === 'double' ? '双引号' : '单引号';
+        showStatus(`已转换 ${lines.length} 行文本为${quoteTypeName}列表！`, 'success');
     } catch (error) {
         showStatus('转换失败：' + error.message, 'error');
     }

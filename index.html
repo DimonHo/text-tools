@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本处理工具 - Text Tools</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">文本处理工具</h1>
+            <p class="subtitle">Text Processing Tools</p>
+        </header>
+
+        <nav class="nav">
+            <button class="nav-btn active" data-tool="escape">转义/去转义</button>
+            <button class="nav-btn" data-tool="json">JSON格式化</button>
+            <button class="nav-btn" data-tool="multiline">多行处理</button>
+            <button class="nav-btn" data-tool="base64">Base64编码</button>
+            <button class="nav-btn" data-tool="url">URL编码</button>
+            <button class="nav-btn" data-tool="hash">哈希计算</button>
+        </nav>
+
+        <main class="main">
+            <!-- 转义/去转义工具 -->
+            <div class="tool-panel active" id="escape-panel">
+                <div class="panel-header">
+                    <h2>转义/去转义工具</h2>
+                    <p>处理字符串转义和去转义</p>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" onclick="escapeText()">转义</button>
+                    <button class="control-btn" onclick="unescapeText()">去转义</button>
+                    <button class="control-btn secondary" onclick="clearText('escape')">清空</button>
+                </div>
+                <div class="text-areas">
+                    <div class="text-area-container">
+                        <label>输入文本</label>
+                        <textarea id="escape-input" placeholder="请输入需要处理的文本..."></textarea>
+                    </div>
+                    <div class="text-area-container">
+                        <label>输出结果</label>
+                        <textarea id="escape-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <button class="copy-btn" onclick="copyText('escape-output')">复制</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSON格式化工具 -->
+            <div class="tool-panel" id="json-panel">
+                <div class="panel-header">
+                    <h2>JSON格式化工具</h2>
+                    <p>格式化、压缩和验证JSON数据</p>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" onclick="formatJson()">格式化</button>
+                    <button class="control-btn" onclick="compressJson()">压缩</button>
+                    <button class="control-btn" onclick="validateJson()">验证</button>
+                    <button class="control-btn secondary" onclick="clearText('json')">清空</button>
+                </div>
+                <div class="text-areas">
+                    <div class="text-area-container">
+                        <label>输入JSON</label>
+                        <textarea id="json-input" placeholder="请输入JSON数据..."></textarea>
+                    </div>
+                    <div class="text-area-container">
+                        <label>输出结果</label>
+                        <textarea id="json-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <button class="copy-btn" onclick="copyText('json-output')">复制</button>
+                    </div>
+                </div>
+                <div class="status" id="json-status"></div>
+            </div>
+
+            <!-- 多行处理工具 -->
+            <div class="tool-panel" id="multiline-panel">
+                <div class="panel-header">
+                    <h2>多行文本处理</h2>
+                    <p>将多行文本转换为各种格式</p>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" onclick="toQuotedList()">转为引号列表</button>
+                    <button class="control-btn" onclick="toCommaList()">转为逗号分隔</button>
+                    <button class="control-btn" onclick="toArray()">转为数组</button>
+                    <button class="control-btn" onclick="removeDuplicates()">去重</button>
+                    <button class="control-btn secondary" onclick="clearText('multiline')">清空</button>
+                </div>
+                <div class="text-areas">
+                    <div class="text-area-container">
+                        <label>输入文本（每行一项）</label>
+                        <textarea id="multiline-input" placeholder="请输入多行文本，每行一项...&#10;例如：&#10;aaa&#10;bbb&#10;ccc"></textarea>
+                    </div>
+                    <div class="text-area-container">
+                        <label>输出结果</label>
+                        <textarea id="multiline-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <button class="copy-btn" onclick="copyText('multiline-output')">复制</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Base64编码工具 -->
+            <div class="tool-panel" id="base64-panel">
+                <div class="panel-header">
+                    <h2>Base64编码工具</h2>
+                    <p>Base64编码和解码</p>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" onclick="encodeBase64()">编码</button>
+                    <button class="control-btn" onclick="decodeBase64()">解码</button>
+                    <button class="control-btn secondary" onclick="clearText('base64')">清空</button>
+                </div>
+                <div class="text-areas">
+                    <div class="text-area-container">
+                        <label>输入文本</label>
+                        <textarea id="base64-input" placeholder="请输入需要处理的文本..."></textarea>
+                    </div>
+                    <div class="text-area-container">
+                        <label>输出结果</label>
+                        <textarea id="base64-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <button class="copy-btn" onclick="copyText('base64-output')">复制</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- URL编码工具 -->
+            <div class="tool-panel" id="url-panel">
+                <div class="panel-header">
+                    <h2>URL编码工具</h2>
+                    <p>URL编码和解码</p>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" onclick="encodeUrl()">编码</button>
+                    <button class="control-btn" onclick="decodeUrl()">解码</button>
+                    <button class="control-btn secondary" onclick="clearText('url')">清空</button>
+                </div>
+                <div class="text-areas">
+                    <div class="text-area-container">
+                        <label>输入文本</label>
+                        <textarea id="url-input" placeholder="请输入需要处理的URL或文本..."></textarea>
+                    </div>
+                    <div class="text-area-container">
+                        <label>输出结果</label>
+                        <textarea id="url-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <button class="copy-btn" onclick="copyText('url-output')">复制</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 哈希计算工具 -->
+            <div class="tool-panel" id="hash-panel">
+                <div class="panel-header">
+                    <h2>哈希计算工具</h2>
+                    <p>计算文本的各种哈希值</p>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" onclick="calculateMD5()">MD5</button>
+                    <button class="control-btn" onclick="calculateSHA1()">SHA1</button>
+                    <button class="control-btn" onclick="calculateSHA256()">SHA256</button>
+                    <button class="control-btn secondary" onclick="clearText('hash')">清空</button>
+                </div>
+                <div class="text-areas">
+                    <div class="text-area-container">
+                        <label>输入文本</label>
+                        <textarea id="hash-input" placeholder="请输入需要计算哈希的文本..."></textarea>
+                    </div>
+                    <div class="text-area-container">
+                        <label>哈希结果</label>
+                        <textarea id="hash-output" readonly placeholder="哈希结果将显示在这里..."></textarea>
+                        <button class="copy-btn" onclick="copyText('hash-output')">复制</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 文本处理工具. 简单易用的在线文本处理工具集合.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

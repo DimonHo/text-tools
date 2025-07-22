@@ -280,6 +280,30 @@ function removeDuplicates() {
     }
 }
 
+function compressToSingleLine() {
+    const input = document.getElementById('multiline-input').value;
+    const output = document.getElementById('multiline-output');
+    
+    if (!input.trim()) {
+        showStatus('请输入多行文本', 'warning');
+        return;
+    }
+    
+    try {
+        const lines = input.split('\n')
+            .map(line => line.trim())
+            .filter(line => line.length > 0);
+        
+        // 将多行文本压缩为单行，用空格分隔
+        const singleLine = lines.join(' ');
+        
+        output.value = singleLine;
+        showStatus(`已将 ${lines.length} 行文本压缩为单行！`, 'success');
+    } catch (error) {
+        showStatus('压缩失败：' + error.message, 'error');
+    }
+}
+
 // Base64编码功能
 function encodeBase64() {
     const input = document.getElementById('base64-input').value;
@@ -649,3 +673,78 @@ function autoSave() {
 
 // 初始化自动保存
 document.addEventListener('DOMContentLoaded', autoSave);
+
+// 链式处理功能
+function transferText(fromTool) {
+    const selectElement = document.getElementById(`${fromTool}-transfer-select`);
+    const toTool = selectElement.value;
+    
+    if (!toTool) {
+        showStatus('请选择要传递到的工具', 'warning');
+        return;
+    }
+    
+    const outputElement = document.getElementById(`${fromTool}-output`);
+    const outputText = outputElement.value;
+    
+    if (!outputText.trim()) {
+        showStatus('没有可传递的内容', 'warning');
+        return;
+    }
+    
+    // 将输出文本设置到目标工具的输入框
+    const targetInputElement = document.getElementById(`${toTool}-input`);
+    if (targetInputElement) {
+        targetInputElement.value = outputText;
+        
+        // 切换到目标工具面板
+        switchTool(toTool);
+        
+        // 重置选择器
+        selectElement.value = '';
+        
+        // 显示成功消息
+        const toolNames = {
+            'escape': '转义/去转义',
+            'json': 'JSON格式化',
+            'multiline': '多行处理',
+            'base64': 'Base64编码',
+            'url': 'URL编码',
+            'hash': '哈希计算'
+        };
+        
+        showStatus(`已将结果传递到 ${toolNames[toTool]} 工具`, 'success');
+        
+        // 自动保存到localStorage
+        localStorage.setItem(targetInputElement.id, outputText);
+    } else {
+        showStatus('目标工具不存在', 'error');
+    }
+}
+
+// 工具切换功能
+function switchTool(toolName) {
+    // 隐藏所有面板
+    const panels = document.querySelectorAll('.tool-panel');
+    panels.forEach(panel => {
+        panel.style.display = 'none';
+    });
+    
+    // 移除所有导航按钮的active状态
+    const navButtons = document.querySelectorAll('.nav-btn');
+    navButtons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // 显示目标面板
+    const targetPanel = document.getElementById(`${toolName}-panel`);
+    if (targetPanel) {
+        targetPanel.style.display = 'block';
+    }
+    
+    // 激活对应的导航按钮
+    const targetNavButton = document.querySelector(`[data-tool="${toolName}"]`);
+    if (targetNavButton) {
+        targetNavButton.classList.add('active');
+    }
+}

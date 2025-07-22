@@ -304,6 +304,60 @@ textarea::placeholder {
     transform: scale(0.95);
 }
 
+/* 传递功能 */
+.transfer-controls {
+    position: absolute;
+    top: 35px;
+    right: 70px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.transfer-select {
+    padding: 6px 10px;
+    background: var(--bg-color);
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 
+        2px 2px 4px var(--shadow-dark),
+        -2px -2px 4px var(--shadow-light);
+    transition: var(--transition);
+}
+
+.transfer-select:hover {
+    color: var(--accent-color);
+}
+
+.transfer-btn {
+    padding: 6px 10px;
+    background: var(--bg-color);
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    box-shadow: 
+        2px 2px 4px var(--shadow-dark),
+        -2px -2px 4px var(--shadow-light);
+    transition: var(--transition);
+}
+
+.transfer-btn:hover {
+    color: var(--accent-color);
+    transform: translateY(-1px);
+}
+
+.transfer-btn:active {
+    box-shadow:
+        inset 2px 2px 4px var(--shadow-dark),
+        inset -2px -2px 4px var(--shadow-light);
+    transform: scale(0.95);
+}
+
 /* 状态信息 */
 .status {
     margin-top: 15px;

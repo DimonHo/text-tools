@@ -42,6 +42,17 @@
                     <div class="text-area-container">
                         <label>输出结果</label>
                         <textarea id="escape-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <div class="transfer-controls">
+                            <select class="transfer-select" id="escape-transfer-select">
+                                <option value="">传递到...</option>
+                                <option value="json">JSON格式化</option>
+                                <option value="multiline">多行处理</option>
+                                <option value="base64">Base64编码</option>
+                                <option value="url">URL编码</option>
+                                <option value="hash">哈希计算</option>
+                            </select>
+                            <button class="transfer-btn" onclick="transferText('escape')">传递</button>
+                        </div>
                         <button class="copy-btn" onclick="copyText('escape-output')">复制</button>
                     </div>
                 </div>
@@ -67,6 +78,17 @@
                     <div class="text-area-container">
                         <label>输出结果</label>
                         <textarea id="json-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <div class="transfer-controls">
+                            <select class="transfer-select" id="json-transfer-select">
+                                <option value="">传递到...</option>
+                                <option value="escape">转义/去转义</option>
+                                <option value="multiline">多行处理</option>
+                                <option value="base64">Base64编码</option>
+                                <option value="url">URL编码</option>
+                                <option value="hash">哈希计算</option>
+                            </select>
+                            <button class="transfer-btn" onclick="transferText('json')">传递</button>
+                        </div>
                         <button class="copy-btn" onclick="copyText('json-output')">复制</button>
                     </div>
                 </div>
@@ -84,6 +106,7 @@
                     <button class="control-btn" onclick="toQuotedList('double')">双引号列表</button>
                     <button class="control-btn" onclick="toCommaList()">转为逗号分隔</button>
                     <button class="control-btn" onclick="toArray()">转为数组</button>
+                    <button class="control-btn" onclick="compressToSingleLine()">压缩为单行</button>
                     <button class="control-btn" onclick="removeDuplicates()">去重</button>
                     <button class="control-btn secondary" onclick="clearText('multiline')">清空</button>
                 </div>
@@ -95,6 +118,17 @@
                     <div class="text-area-container">
                         <label>输出结果</label>
                         <textarea id="multiline-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <div class="transfer-controls">
+                            <select class="transfer-select" id="multiline-transfer-select">
+                                <option value="">传递到...</option>
+                                <option value="escape">转义/去转义</option>
+                                <option value="json">JSON格式化</option>
+                                <option value="base64">Base64编码</option>
+                                <option value="url">URL编码</option>
+                                <option value="hash">哈希计算</option>
+                            </select>
+                            <button class="transfer-btn" onclick="transferText('multiline')">传递</button>
+                        </div>
                         <button class="copy-btn" onclick="copyText('multiline-output')">复制</button>
                     </div>
                 </div>
@@ -119,6 +153,17 @@
                     <div class="text-area-container">
                         <label>输出结果</label>
                         <textarea id="base64-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <div class="transfer-controls">
+                            <select class="transfer-select" id="base64-transfer-select">
+                                <option value="">传递到...</option>
+                                <option value="escape">转义/去转义</option>
+                                <option value="json">JSON格式化</option>
+                                <option value="multiline">多行处理</option>
+                                <option value="url">URL编码</option>
+                                <option value="hash">哈希计算</option>
+                            </select>
+                            <button class="transfer-btn" onclick="transferText('base64')">传递</button>
+                        </div>
                         <button class="copy-btn" onclick="copyText('base64-output')">复制</button>
                     </div>
                 </div>
@@ -143,6 +188,17 @@
                     <div class="text-area-container">
                         <label>输出结果</label>
                         <textarea id="url-output" readonly placeholder="处理结果将显示在这里..."></textarea>
+                        <div class="transfer-controls">
+                            <select class="transfer-select" id="url-transfer-select">
+                                <option value="">传递到...</option>
+                                <option value="escape">转义/去转义</option>
+                                <option value="json">JSON格式化</option>
+                                <option value="multiline">多行处理</option>
+                                <option value="base64">Base64编码</option>
+                                <option value="hash">哈希计算</option>
+                            </select>
+                            <button class="transfer-btn" onclick="transferText('url')">传递</button>
+                        </div>
                         <button class="copy-btn" onclick="copyText('url-output')">复制</button>
                     </div>
                 </div>
@@ -168,6 +224,17 @@
                     <div class="text-area-container">
                         <label>哈希结果</label>
                         <textarea id="hash-output" readonly placeholder="哈希结果将显示在这里..."></textarea>
+                        <div class="transfer-controls">
+                            <select class="transfer-select" id="hash-transfer-select">
+                                <option value="">传递到...</option>
+                                <option value="escape">转义/去转义</option>
+                                <option value="json">JSON格式化</option>
+                                <option value="multiline">多行处理</option>
+                                <option value="base64">Base64编码</option>
+                                <option value="url">URL编码</option>
+                            </select>
+                            <button class="transfer-btn" onclick="transferText('hash')">传递</button>
+                        </div>
                         <button class="copy-btn" onclick="copyText('hash-output')">复制</button>
                     </div>
                 </div>
